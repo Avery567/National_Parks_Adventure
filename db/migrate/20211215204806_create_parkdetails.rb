@@ -12,7 +12,7 @@ class CreateParkdetails < ActiveRecord::Migration[6.1]
       t.string :addresses
       t.string :images
       t.string :weatherinfo
-      t.reference :trip
+      t.references :trip
 
       t.timestamps
     end
