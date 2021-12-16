@@ -9,5 +9,9 @@
     "build": "npm install --prefix nationalparksadventure && npm run build --prefix nationalparksadventure",
     "deploy": "cp -a nationalparksadventure/build/. public/",
     "heroku-postbuild": "npm run clean && npm run build && npm run deploy"
+  },
+  "dependencies": {
+    "emailjs-com": "^3.2.0",
+    "react-router-dom": "^5.3.0"
   }
 }

@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.my-header h1 { 
+  display: inline;
+}
+.my-header span { 
+  float: right;
+}

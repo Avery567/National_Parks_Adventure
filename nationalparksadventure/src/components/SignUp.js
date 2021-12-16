@@ -74,8 +74,8 @@ function SignUp({ onLogin }) {
                     onFinish={handleSubmit}
                 >
                     <Form.Item
-                        label="Full Name"
-                        name="full_name"
+                        label="Stage Name"
+                        name="username"
                         rules={[
                         {
                             required: true,
@@ -83,7 +83,7 @@ function SignUp({ onLogin }) {
                         },
                         ]}
                     >
-                        <Input name="full_name" onChange={handleInputChange} />
+                        <Input name="username" onChange={handleInputChange} />
                     </Form.Item>
                     <Form.Item
                         label="Email"

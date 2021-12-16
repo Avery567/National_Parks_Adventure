@@ -1,17 +1,29 @@
 import { Layout, Menu} from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import { Routes, Route, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import LogIn from './LogIn';
 
 
 const { Header, Content, Sider } = Layout;
 
-function Dashboard({ setUser, user }) {
-    function handleLogoutClick() {
-        fetch("/api/logout", { method: "DELETE" }).then((r) => {
-          if (r.ok) {
-            setUser(null);
-          }
-        })}
+function Dashboard({ handleLogoutClick, onLogin, setUser, user }) {
+
+
+
+    useEffect(() => {
+        // auto-login
+        fetch("/api/me").then((r) => {
+            if (r.ok) {
+            r.json().then((user) => setUser(user));
+            }
+        });
+        }, []);
+    
+    if (!user) return ("You have to sign in first")
+
+
+
     return (
         <Layout className="box">
             <Header className="header" >
@@ -22,7 +34,7 @@ function Dashboard({ setUser, user }) {
                     <Menu
                     mode="inline"
                     >
-                        <Menu.Item key={0} disabled icon={<SmileOutlined />}>Hello, {user.full_name}</Menu.Item>
+                        <Menu.Item key={0} disabled icon={<SmileOutlined />}>Hello, {user.username}</Menu.Item>
                         <Menu.Item key={1}>
                             <Link to="/">
                                 Current Tabs

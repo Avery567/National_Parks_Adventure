@@ -1,7 +1,9 @@
 import { Button, Modal, Form, Input, Alert } from 'antd';
 import { useState } from 'react';
+import {Routes, Route, useNavigate} from "react-router-dom"
 
 function Login({ onLogin }) {
+    const navigate = useNavigate()
     const [isLoginVisible, setLoginVisible] = useState(false)
     const [loginInfo, setLoginInfo] = useState({
         email: "",
@@ -25,7 +27,7 @@ function Login({ onLogin }) {
           }).then((r) => {
             setIsLoading(false);
             if (r.ok) {
-              r.json().then((user) => onLogin(user));
+              r.json().then((user) => {onLogin(user); navigate("/dashboard")});
             } else {
               r.json().then((err) => setErrors(err.errors));
             }
