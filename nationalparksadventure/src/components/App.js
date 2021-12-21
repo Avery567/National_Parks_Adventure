@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Form, Input, Button, message } from 'antd';
 import "antd/dist/antd.css";
 import LandingPage from "./LandingPage";
 import Header from "./Header";
@@ -10,21 +11,23 @@ import {Routes, Route, useNavigate} from "react-router-dom"
 
 function App() {
   const [user, setUser] = useState(null);
-  const [search, setSearch] = useState('')
-  const [parks, setParks] = useState([])
-  const navigate = useNavigate()
+  const [errors, setErrors] = useState([]);
+  const [search, setSearch] = useState('');
+  const [parks, setParks] = useState([]);
+  const [trips, setTrip] = useState([]);
+  const navigate = useNavigate();
 
   const handleSearch = (userInput) => {
     setSearch(userInput)
     navigate("/parkcontainer")
-  }
+  };
 
   useEffect(() => {
     fetch ('https://developer.nps.gov/api/v1/parks?limit=495&api_key=qeE5JzYsOC3owspHxF6feYL8A2AOfa9WsIq78pUn')
     .then(resp => resp.json())
     .then (data => setParks(data.data))
-  } , [])
-  console.log(parks)
+  } , []);
+  // console.log(parks)
   const searchResults = () => {
     if (search.length > 0) {
       return parks.filter(park => park.fullName.toLowerCase().includes(search.toLowerCase())),
@@ -32,7 +35,7 @@ function App() {
     } else {
       return parks
     }
-  }
+  };
 
   function handleLogoutClick() {
     fetch("/api/logout", { method: "DELETE" }).then((r) => {
@@ -41,7 +44,53 @@ function App() {
         navigate("/")
         }
     })
-  }
+  };
+
+  function handleCreateTrip(tripname) {
+    const trip = {name: tripname}
+    console.log(tripname)
+    fetch("/api/trips", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(trip),
+      })
+      .then((r) => {
+        if (r.ok) {
+          r.json().then(newtrip => {
+            handleCreateUserTrip(newtrip.id)
+            success()
+          });
+        }
+        else {
+          r.json().then(err => setErrors([...errors, err.errors]));
+        }
+      });
+}
+
+  const success = () => message.success('New Trip Created!');
+
+
+  function handleCreateUserTrip(trip_id) {
+      fetch("/api/usertrips", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+              user_id: parseInt(user.id),
+              trip_id: trip_id
+          }),
+      })
+   .then(r => {
+      if (r.ok) {
+            r.json().then(data=>console.log(data))
+            } else {
+                r.json().then(err => setErrors([...errors, err.errors]))
+            }
+        })
+  } 
 
   useEffect(() => {
     // auto-login
@@ -60,8 +109,8 @@ function App() {
         <Routes>
           <Route exact path = "*" element={<LandingPage handleSearch={handleSearch} searchResults={searchResults}/>}/>
           <Route path = "/parkcontainer" element={<ParkContainer parks={searchResults()}/>}/>
-          <Route path = "/parkcontainer/:id" element={<ParkFullDetail parks={searchResults()}/>}/>
-          <Route path = "/dashboard" element={<Dashboard handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} />}/>
+          <Route path = "/parkcontainer/:id" element={<ParkFullDetail handleCreateTrip={handleCreateTrip} trips={trips} setTrip={setTrip} parks={searchResults()}/>}/>
+          <Route path = "/dashboard/*" element={<Dashboard handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user}/>}/>
           <Route path = "/contactus" element={<ContactUs />}/>
 
         </Routes>
@@ -69,6 +118,7 @@ function App() {
       
     </div>
   )
+
   return (
 
     <div className="App">
@@ -76,8 +126,8 @@ function App() {
       <Routes>
           <Route exact path = "*" element={<LandingPage handleSearch={handleSearch} searchResults={searchResults}/>}/>
           <Route path = "/parkcontainer" element={<ParkContainer parks={searchResults()}/>}/>
-          <Route path = "/parkcontainer/:id" element={<ParkFullDetail parks={searchResults()}/>}/>
-          <Route path = "/dashboard" element={<Dashboard handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} />}/>
+          <Route path = "/parkcontainer/:id" element={<ParkFullDetail handleCreateTrip={handleCreateTrip} parks={searchResults()}/>}/>
+          <Route path = "/dashboard/*" element={<Dashboard handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} />}/>
           <Route path = "/contactus" element={<ContactUs />}/>
 
         </Routes>

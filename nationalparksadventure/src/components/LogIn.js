@@ -48,7 +48,7 @@ function Login({ onLogin }) {
                 onOk={handleClose}
                 footer={null}
             >
-                {errors.length>0?
+                {errors.length > 0 ?
                 <div>
                     {errors.map((err,index)=>{
                         return (<Alert key={index} message={err} type="error" />)

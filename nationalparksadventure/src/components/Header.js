@@ -6,7 +6,7 @@ import Search from './Search';
 
 function Header ({ onLogin, search, handleSearch }) {
     return (
-        <div class="my-header">
+        <div className="my-header">
             <h1><Link to="/">National Parks Adventure</Link></h1>
             <span><button><Link to="/dashboard">My Dashboard</Link></button></span>
             <span><Search search={search} handleSearch={handleSearch}/></span>

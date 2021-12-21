@@ -3,19 +3,28 @@ import { SmileOutlined } from '@ant-design/icons';
 import { Routes, Route, Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import LogIn from './LogIn';
+import ParkFullDetail from "./ParkFullDetail";
+
 
 
 const { Header, Content, Sider } = Layout;
 
-function Dashboard({ handleLogoutClick, onLogin, setUser, user }) {
-
-
+function Dashboard({ handleLogoutClick, trips, setTrip, onLogin, user }) {
+    // console.log(trips)
+    useEffect(() => {
+        fetch("/api/trips").then((r) => {
+            if (r.ok) {
+            r.json().then((trips) => setTrip(trips));
+            }
+        });
+        }, []);
+       
 
     useEffect(() => {
         // auto-login
         fetch("/api/me").then((r) => {
             if (r.ok) {
-            r.json().then((user) => setUser(user));
+            r.json().then((user) => onLogin(user));
             }
         });
         }, []);
@@ -23,12 +32,8 @@ function Dashboard({ handleLogoutClick, onLogin, setUser, user }) {
     if (!user) return ("You have to sign in first")
 
 
-
     return (
         <Layout className="box">
-            <Header className="header" >
-                <h1>Tab-Tab-Tab</h1>
-            </Header>
             <Layout>
                 <Sider width={300} id="sidebar">
                     <Menu
@@ -56,10 +61,12 @@ function Dashboard({ handleLogoutClick, onLogin, setUser, user }) {
             <Layout>
                 <Content id='content'>
                     <Routes>
+                     
                         {/* <Route path="/" element={<CurrentTabs user={user} />}></Route>
                         <Route path="/new" element={<NewTab curr_user={user} />}></Route>
                         <Route path="/archieves" element={<CompletedTabs user={user} />}></Route> */}
                     </Routes>
+                    hello
                 </Content>
             </Layout>
             </Layout>

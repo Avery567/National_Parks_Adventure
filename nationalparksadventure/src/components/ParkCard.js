@@ -1,6 +1,8 @@
 import {Link} from "react-router-dom";
 
 function ParkCard ({park}) {
+
+  // console.log(park.id)
   return (
  <>
   <div id="card">
@@ -9,6 +11,7 @@ function ParkCard ({park}) {
             {park.fullName}
         </div>
         <nav><Link to={`/parkcontainer/${park.id}`}>View More Park Details</Link></nav>
+ 
         <div id="state">
           <h3>State: </h3>
           <p>{park.states}</p>
