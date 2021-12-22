@@ -32,6 +32,6 @@ class Api::ParkdetailsController < ApplicationController
     private 
 
     def parkdetail_params 
-        params.permit(:fullname, :description, :states, :contacts, :entrancefee, :directionsinfo, :directionsurl, :operatinghours, :addresses, :images, :weatherinfo, :trip_id)
+        params.permit(:fullname, :description, :states, :contacts, :entrancefee, :directionsinfo, :directionsurl, :operatinghours, :addresses, :images, :weatherinfo, :trip_id, :user_id)
     end
 end

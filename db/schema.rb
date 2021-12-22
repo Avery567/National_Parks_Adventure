@@ -28,9 +28,11 @@ ActiveRecord::Schema.define(version: 2021_12_15_204806) do
     t.string "images"
     t.string "weatherinfo"
     t.bigint "trip_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["trip_id"], name: "index_parkdetails_on_trip_id"
+    t.index ["user_id"], name: "index_parkdetails_on_user_id"
   end
 
   create_table "trips", force: :cascade do |t|

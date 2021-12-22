@@ -3,23 +3,15 @@ import { SmileOutlined } from '@ant-design/icons';
 import { Routes, Route, Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import LogIn from './LogIn';
-import ParkFullDetail from "./ParkFullDetail";
+import TripContainer from "./TripContainer";
 
 
 
 const { Header, Content, Sider } = Layout;
 
-function Dashboard({ handleLogoutClick, trips, setTrip, onLogin, user }) {
-    // console.log(trips)
-    useEffect(() => {
-        fetch("/api/trips").then((r) => {
-            if (r.ok) {
-            r.json().then((trips) => setTrip(trips));
-            }
-        });
-        }, []);
-       
+function Dashboard({ handleLogoutClick, onLogin, user, parks, trips, setTrip, handleSaveParkDetail }) {
 
+    
     useEffect(() => {
         // auto-login
         fetch("/api/me").then((r) => {
@@ -41,32 +33,31 @@ function Dashboard({ handleLogoutClick, trips, setTrip, onLogin, user }) {
                     >
                         <Menu.Item key={0} disabled icon={<SmileOutlined />}>Hello, {user.username}</Menu.Item>
                         <Menu.Item key={1}>
-                            <Link to="/">
-                                Current Tabs
-                            </Link>
+     
+                                User Image Placeholder
+
                         </Menu.Item>
                         <Menu.Item key={2}>
-                            <Link to="/new">
-                                Start New Tab
-                            </Link>
+                    
+                                Menu Item Placeholder
+         
                         </Menu.Item>
                         <Menu.Item key={3}>
-                            <Link to="/archieves">
-                                Completed Tabs
-                            </Link>
+                     
+                        Menu Item Placeholder
+                       
                         </Menu.Item>
                         <Menu.Item key={4} onClick={handleLogoutClick}>Logout</Menu.Item>
                     </Menu>
                 </Sider>
             <Layout>
                 <Content id='content'>
-                    <Routes>
-                     
-                        {/* <Route path="/" element={<CurrentTabs user={user} />}></Route>
-                        <Route path="/new" element={<NewTab curr_user={user} />}></Route>
-                        <Route path="/archieves" element={<CompletedTabs user={user} />}></Route> */}
-                    </Routes>
-                    hello
+                    {/* <Routes> */}
+                        {/* <Route element={}></Route> */}
+                        {/* <Route path="/new" element={<NewTab curr_user={user} />}></Route> */}
+                        {/* <Route path="/archieves" element={<CompletedTabs user={user} />}></Route> */}
+                    {/* </Routes> */}
+                    <TripContainer trips={trips} setTrip={setTrip} parks={parks} handleSaveParkDetail={handleSaveParkDetail}/>
                 </Content>
             </Layout>
             </Layout>

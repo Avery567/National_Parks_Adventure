@@ -1,19 +1,24 @@
-// import { useEffect, useState } from "react"
-// import { Collapse, message } from 'antd';
-// import TripCard from "./TripCard";
+import { useEffect, useState } from "react"
+import { Collapse, message } from 'antd';
+import TripCard from "./TripCard";
 
-// function TripContainer({ user }) {
-//     const { Panel } = Collapse;
-//     const [tabs, setTabs] = useState([])
 
-//     useEffect(()=>{
-//         fetch('/api/tabs').then(r=>r.json()).then(data=>{
-//             let incomplete_tabs = data.filter(tab=>{
-//                 return tab.completed!==true
-//             })
-//             setTabs(incomplete_tabs)
-//         })
-//     },[])
+function TripContainer({trips, setTrip, parks}) {
+
+    const { Panel } = Collapse;
+
+    const handleDeleteTrip = (id) => {
+        console.log("deleted")
+        fetch(`/api/trips/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(r=>r.json())
+        .then(setTrip(trips.filter(trip => trip.id !== id)))
+    }
+
 
 //     const handleDeleteTab = (id) => {
 //         fetch(`/api/tabs/${id}`, {
@@ -49,18 +54,22 @@
 //         })
 //     }
 
-//     return(
-//         <div id="currenttabs">
-//             <Collapse>
-//                 {tabs.map(tab=>{
-//                     return (
-//                     <Panel header={tab.name} key={tab.id}>
-//                         <TabCard user={user} tab={tab} handleDeleteTab={handleDeleteTab} handleSettle={handleSettle}/>
-//                     </Panel>)
-//                 })}
-//             </Collapse>
-//         </div>
-//     )
-// }
+    return(
+      <>
+        <div id="tripcontainer">
+        <Collapse>
+            {trips.map(trip=> {
+                return (
+                <Panel header={`Trip to: ${trip.name}`} key={trip.id} >
+                    <TripCard key={trip.id} trip={trip} parks={parks} handleDeleteTrip={handleDeleteTrip}/>
+                </Panel>)
+            })} 
+        </Collapse>
+        </div>
+        <div>
+        </div>
+      </>
+    )
+}
 
-// export default CurrentTabs
+export default TripContainer

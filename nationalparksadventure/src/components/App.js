@@ -14,8 +14,13 @@ function App() {
   const [errors, setErrors] = useState([]);
   const [search, setSearch] = useState('');
   const [parks, setParks] = useState([]);
+  const [parkDetails, setParkDetails] = useState([]);
   const [trips, setTrip] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    fetch('/api/trips').then(r=>r.json()).then(setTrip)
+  },[])
 
   const handleSearch = (userInput) => {
     setSearch(userInput)
@@ -25,9 +30,13 @@ function App() {
   useEffect(() => {
     fetch ('https://developer.nps.gov/api/v1/parks?limit=495&api_key=qeE5JzYsOC3owspHxF6feYL8A2AOfa9WsIq78pUn')
     .then(resp => resp.json())
-    .then (data => setParks(data.data))
+    .then (data => {
+      setParks(data.data)
+    })
   } , []);
-  // console.log(parks)
+
+
+
   const searchResults = () => {
     if (search.length > 0) {
       return parks.filter(park => park.fullName.toLowerCase().includes(search.toLowerCase())),
@@ -48,7 +57,7 @@ function App() {
 
   function handleCreateTrip(tripname) {
     const trip = {name: tripname}
-    console.log(tripname)
+    console.log(tripname) 
     fetch("/api/trips", {
         method: "POST",
         headers: {
@@ -59,7 +68,10 @@ function App() {
       .then((r) => {
         if (r.ok) {
           r.json().then(newtrip => {
+            const updatedTrips = [...trips, newtrip]
+            setTrip(updatedTrips)
             handleCreateUserTrip(newtrip.id)
+            handleCreateParkDetails(tripname, newtrip.id)
             success()
           });
         }
@@ -92,6 +104,41 @@ function App() {
         })
   } 
 
+  function handleCreateParkDetails(tripname, trip_id) {
+    let myPark = parks.find(park=>{
+      return park.fullName === tripname
+    })
+
+    fetch("/api/parkdetails", {
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+          fullname: myPark.fullName,
+          description: myPark.description,
+          states: myPark.states,
+          contacts: myPark.contacts.phoneNumbers[0].phoneNumber,
+          entrancefee: myPark.entranceFees[0].cost,
+          directionsinfo: myPark.directionsinfo,
+          directionsurl: myPark.directionsurl,
+          operatinghours: myPark.operatingHours[0],
+          addresses: myPark.addresses[0],
+          images: myPark.images[0],
+          weatherinfo: myPark.weatherinfo,
+          trip_id: trip_id,
+    }),
+    })
+    .then((r) => {
+        if (r.ok) {
+        r.json().then(setParkDetails);
+        }
+        else {
+        r.json().then(err => setErrors([...errors, err.errors]));
+        }
+    });
+  }
+
   useEffect(() => {
     // auto-login
     fetch("/api/me").then((r) => {
@@ -109,8 +156,8 @@ function App() {
         <Routes>
           <Route exact path = "*" element={<LandingPage handleSearch={handleSearch} searchResults={searchResults}/>}/>
           <Route path = "/parkcontainer" element={<ParkContainer parks={searchResults()}/>}/>
-          <Route path = "/parkcontainer/:id" element={<ParkFullDetail handleCreateTrip={handleCreateTrip} trips={trips} setTrip={setTrip} parks={searchResults()}/>}/>
-          <Route path = "/dashboard/*" element={<Dashboard handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user}/>}/>
+          <Route path = "/parkcontainer/:id" element={<ParkFullDetail handleCreateTrip={handleCreateTrip} parks={searchResults()}/>}/>
+          <Route path = "/dashboard/*" element={<Dashboard parks={searchResults()} handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} trips={trips} setTrip={setTrip}/>}/>
           <Route path = "/contactus" element={<ContactUs />}/>
 
         </Routes>
@@ -127,7 +174,7 @@ function App() {
           <Route exact path = "*" element={<LandingPage handleSearch={handleSearch} searchResults={searchResults}/>}/>
           <Route path = "/parkcontainer" element={<ParkContainer parks={searchResults()}/>}/>
           <Route path = "/parkcontainer/:id" element={<ParkFullDetail handleCreateTrip={handleCreateTrip} parks={searchResults()}/>}/>
-          <Route path = "/dashboard/*" element={<Dashboard handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} />}/>
+          <Route path = "/dashboard/*" element={<Dashboard parks={searchResults()} handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} trips={trips} setTrip={setTrip}/>}/>
           <Route path = "/contactus" element={<ContactUs />}/>
 
         </Routes>
