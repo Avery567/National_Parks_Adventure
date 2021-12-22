@@ -14,6 +14,7 @@ function App() {
   const [errors, setErrors] = useState([]);
   const [search, setSearch] = useState('');
   const [parks, setParks] = useState([]);
+  const [parkDetails, setParkDetails] = useState([]);
   const [trips, setTrip] = useState([]);
   const navigate = useNavigate();
 
@@ -67,10 +68,16 @@ function App() {
       .then((r) => {
         if (r.ok) {
           r.json().then(newtrip => {
-            const updatedTrips = [...trips, newtrip]
-            setTrip(updatedTrips)
+            console.log(newtrip)
             handleCreateUserTrip(newtrip.id)
-            handleCreateParkDetails(tripname, newtrip.id)
+            handleCreateParkDetails(tripname, newtrip.id, newtrip)
+            // newtrip.parkdetails = new Array(parkDetails)
+            // const updatedTrips = [...trips, newtrip]
+            // setTrip(updatedTrips)
+    
+            console.log(trips)
+            console.log("parkdetails",parkDetails)
+            console.log("parkdetails",newtrip.parkdetails)
             success()
           });
         }
@@ -103,7 +110,7 @@ function App() {
         })
   } 
 
-  function handleCreateParkDetails(tripname, trip_id) {
+  function handleCreateParkDetails(tripname, trip_id, newtrip) {
     let myPark = parks.find(park=>{
       return park.fullName === tripname
     })
@@ -131,14 +138,30 @@ function App() {
     })
     .then((r) => {
         if (r.ok) {
-        r.json().then(data=>console.log(data));
+        r.json().then(newParkDetails=>{
+          
+          // setTrip( prevTrips => {
+            // const newTrips = [...prevTrips]
+            // const index = newTrips.findIndex(r => r.id == newParkDetails.id)
+          //   newTrips[0].parkdetails.push(newParkDetails)
+          //   return newTrips
+          // })
+          // const udpatedParkDetails = [...parkDetails, newParkDetails]
+          // setParkDetails(newParkDetails)
+          newtrip.parkdetails = new Array(newParkDetails)
+          const updatedTrips = [...trips, newtrip]
+          setTrip(updatedTrips)
+          console.log(typeof newParkDetails)
+          console.log(updatedTrips)
+          // setParkDetails
+        });
         }
         else {
         r.json().then(err => setErrors([...errors, err.errors]));
         }
     });
   }
-
+console.log(trips)
   useEffect(() => {
     // auto-login
     fetch("/api/me").then((r) => {
@@ -157,7 +180,7 @@ function App() {
           <Route exact path = "*" element={<LandingPage handleSearch={handleSearch} searchResults={searchResults}/>}/>
           <Route path = "/parkcontainer" element={<ParkContainer parks={searchResults()}/>}/>
           <Route path = "/parkcontainer/:id" element={<ParkFullDetail handleCreateTrip={handleCreateTrip} parks={searchResults()}/>}/>
-          <Route path = "/dashboard/*" element={<Dashboard parks={searchResults()} handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} trips={trips} setTrip={setTrip}/>}/>
+          <Route path = "/dashboard/*" element={<Dashboard parks={searchResults()} handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} trips={trips} setTrip={setTrip} parkDetails={parkDetails} />}/>
           <Route path = "/contactus" element={<ContactUs />}/>
 
         </Routes>
@@ -174,7 +197,7 @@ function App() {
           <Route exact path = "*" element={<LandingPage handleSearch={handleSearch} searchResults={searchResults}/>}/>
           <Route path = "/parkcontainer" element={<ParkContainer parks={searchResults()}/>}/>
           <Route path = "/parkcontainer/:id" element={<ParkFullDetail handleCreateTrip={handleCreateTrip} parks={searchResults()}/>}/>
-          <Route path = "/dashboard/*" element={<Dashboard parks={searchResults()} handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} trips={trips} setTrip={setTrip}/>}/>
+          <Route path = "/dashboard/*" element={<Dashboard parks={searchResults()} handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} trips={trips} setTrip={setTrip} parkDetails={parkDetails} />}/>
           <Route path = "/contactus" element={<ContactUs />}/>
 
         </Routes>

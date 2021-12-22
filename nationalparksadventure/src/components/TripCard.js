@@ -3,24 +3,21 @@ import { useState, useEffect } from 'react';
 import { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined,  DollarCircleOutlined, UserOutlined, UsergroupDeleteOutlined  } from '@ant-design/icons';
 import { Popconfirm, Popover, Avatar } from 'antd';
 import PackingList from "./PackingList";
+import { DatePicker } from 'antd';
 import TripmateList from "./TripmateList";
 
-function TripCard({ parks, trip, user, handleDeleteTrip }) {
-//  console.log(parks)
- const [parkDetails, setParkDetails] = useState([]);
-
- useEffect(()=>{
-    fetch('/api/parkdetails').then(r=>r.json()).then(setParkDetails)
-  },[])
-
-//   console.log(trip)
-
+function TripCard({ parkDetails, trip, user, handleDeleteTrip }) {
+//  console.log(trip)
+//   console.log(trip.parkdetails[0].images)
+const { RangePicker } = DatePicker;
 
     return (
  
             <div id="tripcard">
-                <h2>Park Name: {trip.name}</h2> 
-                <p><button onClick = {() => handleDeleteTrip(trip.id)}>Remove Trip</button></p>       
+                <h2>Park Name: {trip.name}
+                  <RangePicker />
+                </h2> 
+                <p><button onClick = {() => handleDeleteTrip(trip.id)}>Remove Trip</button></p>     
                 <img src= {trip.parkdetails[0].images} height="300rem" width="400rem"/>
                 <p>Description: {trip.parkdetails[0].description}</p>
                 <p>State: {trip.parkdetails[0].states}</p>
@@ -33,7 +30,7 @@ function TripCard({ parks, trip, user, handleDeleteTrip }) {
                 <p>Weather Info: {trip.parkdetails[0].weatherinfo}</p>
 
                 <PackingList trip={trip} user={user}/>
-                <TripmateList trip={trip}user={user}/>
+                {/* <TripmateList trip={trip}user={user}/> */}
             </div>
  
     )

@@ -3,12 +3,12 @@ import { Collapse, message } from 'antd';
 import TripCard from "./TripCard";
 
 
-function TripContainer({trips, setTrip, parks}) {
-
+function TripContainer({parkDetails, trips, setTrip, parks, user}) {
+// console.log(trips)
     const { Panel } = Collapse;
 
     const handleDeleteTrip = (id) => {
-        console.log("deleted")
+        // console.log("deleted")
         fetch(`/api/trips/${id}`, {
             method: 'DELETE',
             headers: {
@@ -19,49 +19,16 @@ function TripContainer({trips, setTrip, parks}) {
         .then(setTrip(trips.filter(trip => trip.id !== id)))
     }
 
-
-//     const handleDeleteTab = (id) => {
-//         fetch(`/api/tabs/${id}`, {
-//             method: 'DELETE',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//         })
-//         .then(r=>r.json())
-//         .then(setTabs(tabs.filter(tab => tab.id !== id)))
-//     };
-//     const success = () => {
-//         message.success('Settle successful, check it out in Completed Tabs');
-//       };
-
-//     function handleSettle(id) {
-//         fetch(`/api/tabs/${id}`,{
-//             method: "PATCH",
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({
-//                 completed: true
-//             })
-//         }).then(r=>{
-//             if (r.ok) {
-//                 let newTabs = tabs.filter(tab=>{
-//                     return tab.id!==id
-//                 })
-//                 setTabs(newTabs)
-//                 success()
-//             }
-//         })
-//     }
-
+// console.log(trips)
     return(
       <>
         <div id="tripcontainer">
         <Collapse>
+        
             {trips.map(trip=> {
                 return (
                 <Panel header={`Trip to: ${trip.name}`} key={trip.id} >
-                    <TripCard key={trip.id} trip={trip} parks={parks} handleDeleteTrip={handleDeleteTrip}/>
+                    <TripCard key={trip.id} trip={trip} user={user} parks={parks} parkDetails={parkDetails} handleDeleteTrip={handleDeleteTrip}/>
                 </Panel>)
             })} 
         </Collapse>

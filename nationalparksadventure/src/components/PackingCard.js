@@ -1,12 +1,12 @@
 import { Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 
-function PackingCard({ item, handleDelete }) {
+function PackingCard({ packingList, handleDeletePackingList }) {
     return (
     <div>
         <span id="singleitem">
-            {item.name} - ${item.price}
-            <Button onClick={()=>handleDelete(item.id)} style={{float: 'right'}} size="small" icon={<DeleteOutlined  />} />
+            {packingList.name}
+            <Button onClick={()=>handleDeletePackingList(packingList.id)} style={{float: 'right'}} size="small" icon={<DeleteOutlined  />} />
         </span>
     </div>
     )

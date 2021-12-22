@@ -9,9 +9,8 @@ import TripContainer from "./TripContainer";
 
 const { Header, Content, Sider } = Layout;
 
-function Dashboard({ handleLogoutClick, onLogin, user, parks, trips, setTrip, handleSaveParkDetail }) {
+function Dashboard({ parkDetails, handleLogoutClick, onLogin, user, parks, trips, setTrip, handleSaveParkDetail }) {
 
-    
     useEffect(() => {
         // auto-login
         fetch("/api/me").then((r) => {
@@ -56,7 +55,7 @@ function Dashboard({ handleLogoutClick, onLogin, user, parks, trips, setTrip, ha
                         {/* <Route path="/new" element={<NewTab curr_user={user} />}></Route> */}
                         {/* <Route path="/archieves" element={<CompletedTabs user={user} />}></Route> */}
                     {/* </Routes> */}
-                    <TripContainer trips={trips} setTrip={setTrip} parks={parks} handleSaveParkDetail={handleSaveParkDetail}/>
+                    <TripContainer parkDetails={parkDetails} trips={trips} setTrip={setTrip} parks={parks} user={user} handleSaveParkDetail={handleSaveParkDetail}/>
                 </Content>
             </Layout>
             </Layout>

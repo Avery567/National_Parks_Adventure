@@ -2,6 +2,7 @@ class User < ApplicationRecord
     has_secure_password 
 
     has_many :parkdetails
+    has_many :packinglists
     has_many :usertrips
     has_many :trips, through: :usertrips
 

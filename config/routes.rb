@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :usertrips, only: [:index,:create]
     resources :trips, only: [:index, :show, :create, :update, :destroy]
     resources :parkdetails, only: [:index, :show, :create, :update, :destroy]
+    resources :packinglists, only: [:index, :show, :create, :update, :destroy]
     resources :users, only: [:index, :create, :destroy]
     # Routing logic: fallback requests for React Router.
     # Leave this here to help deploy your app later!
