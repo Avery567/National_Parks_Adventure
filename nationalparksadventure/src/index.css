@@ -18,3 +18,9 @@ code {
 .my-header span { 
   float: right;
 }
+
+#park-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 4px;
+}

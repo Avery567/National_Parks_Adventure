@@ -14,7 +14,7 @@ const { id } = useParams();
               // console.log(park)
               return (
                 <div className="full-card" key={ park.id }>
-                  <img src= {park.images[0].url}/>
+                  <img src= {park.images[0].url} height="500rem" width="700rem"/>
                   <h2>Name: {park.fullName}</h2>
                   <button onClick={() => handleCreateTrip(park.fullName)}><Link to="/dashboard">Plan A Trip</Link></button>
                 </div>

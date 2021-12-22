@@ -33,18 +33,17 @@ function Dashboard({ handleLogoutClick, onLogin, user, parks, trips, setTrip, ha
                     >
                         <Menu.Item key={0} disabled icon={<SmileOutlined />}>Hello, {user.username}</Menu.Item>
                         <Menu.Item key={1}>
-     
-                                User Image Placeholder
+
 
                         </Menu.Item>
                         <Menu.Item key={2}>
                     
-                                Menu Item Placeholder
+                          
          
                         </Menu.Item>
                         <Menu.Item key={3}>
                      
-                        Menu Item Placeholder
+        
                        
                         </Menu.Item>
                         <Menu.Item key={4} onClick={handleLogoutClick}>Logout</Menu.Item>
