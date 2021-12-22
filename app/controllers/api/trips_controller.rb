@@ -2,7 +2,7 @@ class Api::TripsController < ApplicationController
 
     def index
         trips = current_user.trips
-        render json: trips
+        render json: trips, each_serializer: TripSerializer
     end
 
     def show 

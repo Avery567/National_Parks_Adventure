@@ -1,12 +1,18 @@
 import { Button, Space, Modal, InputNumber, Form, Input, message } from 'antd';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined,  DollarCircleOutlined, UserOutlined, UsergroupDeleteOutlined  } from '@ant-design/icons';
 import { Popconfirm, Popover, Avatar } from 'antd';
 
 
 function TripCard({ parks, trip, user, handleDeleteTrip }) {
- console.log(parks)
+//  console.log(parks)
+ const [parkDetails, setParkDetails] = useState([]);
 
+ useEffect(()=>{
+    fetch('/api/parkdetails').then(r=>r.json()).then(setParkDetails)
+  },[])
+
+  console.log(trip)
     return (
         <div id="tripcard">
 {/* {/* //             <Space>
@@ -90,9 +96,21 @@ function TripCard({ parks, trip, user, handleDeleteTrip }) {
 //                 You Currently owe:  ${ownAmount}
 //             </Space> */}
             <div id="tripcard">
-              Trip to: {trip.name} 
+              Park Name: {trip.name} 
               <button onClick = {() => handleDeleteTrip(trip.id)}>Remove Trip</button>       
             </div> 
+            <div>
+                <img src= {trip.parkdetails[0].images} height="300rem" width="400rem"/>
+                <p>Description: {trip.parkdetails[0].description}</p>
+                <p>State: {trip.parkdetails[0].states}</p>
+                <p>Contacts: {trip.parkdetails[0].contacts}</p>
+                <p>Entrance Fee: {trip.parkdetails[0].entrancefee}</p>
+                <p>Directions: {trip.parkdetails[0].directionsinfo}</p>
+                <p>Directions Url: {trip.parkdetails[0].directionsurl}</p>
+                <p>Operating Hours: {trip.parkdetails[0].operatinghours}</p>
+                <p>Addresses: {trip.parkdetails[0].addresses}</p>
+                <p>Weather Info: {trip.parkdetails[0].weatherinfo}</p>
+            </div>
         </div>
     )
 }

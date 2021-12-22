@@ -25,7 +25,7 @@ class Api::ParkdetailsController < ApplicationController
             parkdetail.destroy
             head :no_content 
         else  
-            render json: "Item does not exist", status: :not_found 
+            render json: "Park Detail does not exist", status: :not_found 
         end
     end
 

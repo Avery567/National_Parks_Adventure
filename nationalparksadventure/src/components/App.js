@@ -14,7 +14,6 @@ function App() {
   const [errors, setErrors] = useState([]);
   const [search, setSearch] = useState('');
   const [parks, setParks] = useState([]);
-  const [parkDetails, setParkDetails] = useState([]);
   const [trips, setTrip] = useState([]);
   const navigate = useNavigate();
 
@@ -57,7 +56,7 @@ function App() {
 
   function handleCreateTrip(tripname) {
     const trip = {name: tripname}
-    console.log(tripname) 
+    // console.log(tripname) 
     fetch("/api/trips", {
         method: "POST",
         headers: {
@@ -108,7 +107,7 @@ function App() {
     let myPark = parks.find(park=>{
       return park.fullName === tripname
     })
-
+    console.log(myPark)
     fetch("/api/parkdetails", {
       method: "POST",
       headers: {
@@ -120,18 +119,19 @@ function App() {
           states: myPark.states,
           contacts: myPark.contacts.phoneNumbers[0].phoneNumber,
           entrancefee: myPark.entranceFees[0].cost,
-          directionsinfo: myPark.directionsinfo,
-          directionsurl: myPark.directionsurl,
-          operatinghours: myPark.operatingHours[0],
-          addresses: myPark.addresses[0],
-          images: myPark.images[0],
-          weatherinfo: myPark.weatherinfo,
+          directionsinfo: myPark.directionsInfo,
+          directionsurl: myPark.directionsUrl,
+          operatinghours: myPark.operatingHours[0].description,
+          addresses: myPark.addresses[0].line1,
+          images: myPark.images[0].url,
+          weatherinfo: myPark.weatherInfo,
           trip_id: trip_id,
+          user_id: user.id
     }),
     })
     .then((r) => {
         if (r.ok) {
-        r.json().then(setParkDetails);
+        r.json().then(data=>console.log(data));
         }
         else {
         r.json().then(err => setErrors([...errors, err.errors]));

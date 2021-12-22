@@ -11,7 +11,7 @@ const { id } = useParams();
   <div className="full-detail">
         <div className="explore-container">
           {parks.filter(park => park.id === id).map(park => {
-              console.log(park)
+              // console.log(park)
               return (
                 <div className="full-card" key={ park.id }>
                   <img src= {park.images[0].url}/>
