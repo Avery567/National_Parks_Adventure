@@ -68,16 +68,8 @@ function App() {
       .then((r) => {
         if (r.ok) {
           r.json().then(newtrip => {
-            console.log(newtrip)
             handleCreateUserTrip(newtrip.id)
             handleCreateParkDetails(tripname, newtrip.id, newtrip)
-            // newtrip.parkdetails = new Array(parkDetails)
-            // const updatedTrips = [...trips, newtrip]
-            // setTrip(updatedTrips)
-    
-            console.log(trips)
-            console.log("parkdetails",parkDetails)
-            console.log("parkdetails",newtrip.parkdetails)
             success()
           });
         }
@@ -139,21 +131,9 @@ function App() {
     .then((r) => {
         if (r.ok) {
         r.json().then(newParkDetails=>{
-          
-          // setTrip( prevTrips => {
-            // const newTrips = [...prevTrips]
-            // const index = newTrips.findIndex(r => r.id == newParkDetails.id)
-          //   newTrips[0].parkdetails.push(newParkDetails)
-          //   return newTrips
-          // })
-          // const udpatedParkDetails = [...parkDetails, newParkDetails]
-          // setParkDetails(newParkDetails)
           newtrip.parkdetails = new Array(newParkDetails)
           const updatedTrips = [...trips, newtrip]
           setTrip(updatedTrips)
-          console.log(typeof newParkDetails)
-          console.log(updatedTrips)
-          // setParkDetails
         });
         }
         else {

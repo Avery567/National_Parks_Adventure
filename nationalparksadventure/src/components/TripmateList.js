@@ -6,6 +6,8 @@ import { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined,  DollarCircleO
 import TripmateCard from "./TripmateCard";
 
 function TripmateList ({trip, user}) {
+
+    
     const tripmates = (
         <Space direction="vertical">
             {trip.users.map((user)=>{

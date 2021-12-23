@@ -41,6 +41,10 @@ function PackingList ({trip, user}) {
     message.success('New Item Created!');
   };
 
+  useEffect(()=>{
+    fetch('/api/packinglists').then(r=>r.json()).then(setPackingLists)
+  },[])
+
   const handleAddItemToPackingList = () => {
     fetch("/api/packinglists", {
         method: "POST",

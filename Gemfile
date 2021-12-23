@@ -13,6 +13,11 @@ gem 'puma', '~> 5.0'
 gem 'bcrypt', '~> 3.1.7'
 # hide api key
 gem 'dotenv-rails'
+# use google to sign in
+gem "devise"
+# OmniAuth Google OAuth2 Installation
+ gem "omniauth-google-oauth2"
+
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
@@ -29,4 +34,5 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+# use of serializer
 gem 'active_model_serializers'
