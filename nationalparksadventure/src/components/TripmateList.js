@@ -9,6 +9,9 @@ import DebounceSelect from './DebounceSelect';
 function TripmateList ({trip, trips, user, setTrip}) {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [errors, setErrors] = useState([]);
+    const [tripmates, setTripmates] = useState(trip.users);
+    const [allUsers, setAllUsers] = useState([]);
+    const [userTrips, setUserTrips] = useState([]);
     const [value, setValue] = useState([]);
     const [form] = Form.useForm();
     const showModal = () => {
@@ -25,27 +28,17 @@ function TripmateList ({trip, trips, user, setTrip}) {
     async function fetchUserList(value) {
         return fetch("/api/users")
             .then(r=>r.json())
-            .then((data)=> 
+            .then((data)=>
                 data.map((user)=>({
                     label: `${user.id} ${user.username}`,
-                    value: user.email,
-                })),
-            );
+                    value: user.email
+                }))
+            )
     }
 
-    // function handleDeleteTripmate(usertrip_id) {
-    //     fetch(`/api/usertrips/${usertrip_id}`,{
-    //         method:"DELETE"
-    //     })
-    //     .then(r=>{
-    //       if (r.ok) {
-    //           let newPackingList = packingLists.filter((packingList)=>{
-    //               return (packingList.id!==id)
-    //           })
-    //           setPackingLists(newPackingList)
-    //       }
-    //     })
-    // }
+    useEffect(()=>{
+        fetch('/api/users').then(r=>r.json()).then(setAllUsers)
+      },[])
 
     function handleAddUserToTrip(trip_id) {
         const users = value.map(v=>{return(v.label.split(' ')[0])})
@@ -61,7 +54,12 @@ function TripmateList ({trip, trips, user, setTrip}) {
                 }),
             }).then((r)=>{
                 if (r.ok) {
-                    r.json().then((data)=>console.log(data))
+                    r.json().then(usertrip => {
+                        const newTripmate = allUsers.find(tripmate=>{
+                            return (tripmate.id === usertrip.user_id)
+                        })
+                        setTripmates([...tripmates, newTripmate])
+                    })
                 } else {
                     r.json().then((err)=>setErrors([...errors, err.errors]))
                 }
@@ -70,19 +68,43 @@ function TripmateList ({trip, trips, user, setTrip}) {
         form.resetFields()
     }
 
+    useEffect(()=>{
+        fetch('/api/usertrips').then(r=>r.json()).then(setUserTrips)
+      },[])
+
+    // console.log(userTrips)
+
+    function handleDeleteTripmate(tripmate_id) {
+        const userTripToDelete = userTrips.find(userTrip=>{
+            return (tripmate_id === userTrip.user_id)
+        })
+        console.log(userTripToDelete)
+        fetch(`/api/usertrips/${userTripToDelete.id}`,{
+            method:"DELETE"
+        })
+        .then(r=>{
+            if (r.ok) {
+                r.json().then(
+                    setTripmates(tripmates.filter(tripmate => tripmate.id !== tripmate_id))
+                )
+            }
+        })
+      }
+
 
 
   return (
     <>
         <h2>Tripmates</h2>
         <div id="tripmate" >
-            {trip.users.length>1? 
+            {tripmates.length>1? 
             <Space direction="vertical">
-                {trip.users.map((tripmate)=>{
-                    return (<TripmateCard key={tripmate.id} tripmate={tripmate}/>)
+                {tripmates.map((tripmate)=>{
+                    return (<TripmateCard key={tripmate.id} tripmate={tripmate} userTrips={userTrips} handleDeleteTripmate={handleDeleteTripmate}/>)
                 })}
             </Space>:
                 <p>No tripmate at the moment, invite new tripmates!</p>} 
+                {/* {userTrips.map(userTrip=><TripmateCard key={userTrip.id} userTrip={userTrip}/>)} */}
         </div>
         <Button onClick={showModal}>
         <PlusOutlined />

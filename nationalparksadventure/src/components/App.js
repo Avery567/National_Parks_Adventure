@@ -106,7 +106,7 @@ function App() {
     let myPark = parks.find(park=>{
       return park.fullName === tripname
     })
-    console.log(myPark)
+    // console.log(myPark)
     fetch("/api/parkdetails", {
       method: "POST",
       headers: {
