@@ -7,7 +7,7 @@ import TripmateCard from "./TripmateCard";
 
 function TripmateList ({trip, user}) {
 
-    
+
     const tripmates = (
         <Space direction="vertical">
             {trip.users.map((user)=>{
@@ -18,7 +18,7 @@ function TripmateList ({trip, user}) {
   return (
 
         <div id="tripmate" >
-            <p>Tripmate(s): {tripmates}</p>
+            <p>Tripmate: {tripmates}</p>
             <TripmateCard/>
             <button>Add Tripmates</button>  
         </div>
