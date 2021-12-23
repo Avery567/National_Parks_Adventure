@@ -6,7 +6,7 @@ import PackingList from "./PackingList";
 import { DatePicker } from 'antd';
 import TripmateList from "./TripmateList";
 
-function TripCard({ parkDetails, trip, user, handleDeleteTrip }) {
+function TripCard({ setTrip, trip, trips, user, handleDeleteTrip }) {
 //  console.log(trip)
 //   console.log(trip.parkdetails[0].images)
 const { RangePicker } = DatePicker;
@@ -30,7 +30,7 @@ const { RangePicker } = DatePicker;
                 <p>Weather Info: {trip.parkdetails[0].weatherinfo}</p>
 
                 <PackingList trip={trip} user={user}/>
-                {/* <TripmateList trip={trip}user={user}/> */}
+                <TripmateList trip={trip} trips={trips} user={user} setTrip={setTrip}/>
             </div>
  
     )

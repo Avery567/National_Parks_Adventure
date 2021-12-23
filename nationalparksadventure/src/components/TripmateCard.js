@@ -2,12 +2,12 @@ import { Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 
 
-function TripmateCard({ item, handleDelete }) {
+function TripmateCard({ tripmate, userTrip, handleDeleteTripmate }) {
     return (
     <div>
         <span id="singleitem">
-            {item.name}
-            <Button onClick={()=>handleDelete(item.id)} style={{float: 'right'}} size="small" icon={<DeleteOutlined  />} />
+            {tripmate.username}
+            <Button onClick={()=>handleDeleteTripmate(userTrip.id)} style={{float: 'right'}} size="small" icon={<DeleteOutlined  />} />
         </span>
     </div>
     )

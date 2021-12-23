@@ -141,7 +141,8 @@ function App() {
         }
     });
   }
-console.log(trips)
+// console.log(trips)
+
   useEffect(() => {
     // auto-login
     fetch("/api/me").then((r) => {

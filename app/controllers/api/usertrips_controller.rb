@@ -5,6 +5,11 @@ class Api::UsertripsController < ApplicationController
         render json: usertrips
     end
     
+    def show 
+        usertrip = Usertrip.find(params[:id])
+        render json: usertrip
+    end
+
     def create 
         usertrip = Usertrip.create(usertrip_params)
         if usertrip.valid?
@@ -13,6 +18,16 @@ class Api::UsertripsController < ApplicationController
         else 
             render json: { errors: usertrip.errors.full_messages }, status: :unprocessable_entity 
         end 
+    end
+
+    def destroy 
+        usertrip = Usertrip.find_by(id: params[:id])
+        if usertrip 
+            usertrip.destroy
+            head :no_content 
+        else  
+            render json: { errors: ["Usertrip does not exist"]}, status: :not_found 
+        end
     end
 
     private 

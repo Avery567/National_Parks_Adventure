@@ -1,7 +1,9 @@
 import { Button, Modal, Form, Input, Alert } from 'antd';
 import { useState } from 'react';
+import {Routes, Route, useNavigate} from "react-router-dom"
 
 function SignUp({ onLogin }) {
+    const navigate = useNavigate()
     const [isRsvpVisible, setRsvpVisible] = useState(false)
     const [rsvpInfo, setRsvpInfo] = useState({
         username: "",
@@ -30,7 +32,7 @@ function SignUp({ onLogin }) {
           }).then((r) => {
             setIsLoading(false);
             if (r.ok) {
-              r.json().then((user) => onLogin(user));
+              r.json().then((user) => {onLogin(user); navigate("/dashboard")});
             } else {
               r.json().then((err) => setErrors(err.errors));
             }

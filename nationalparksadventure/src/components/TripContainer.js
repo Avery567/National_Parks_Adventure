@@ -28,7 +28,7 @@ function TripContainer({parkDetails, trips, setTrip, parks, user}) {
             {trips.map(trip=> {
                 return (
                 <Panel header={`Trip to: ${trip.name}`} key={trip.id} >
-                    <TripCard key={trip.id} trip={trip} user={user} parks={parks} parkDetails={parkDetails} handleDeleteTrip={handleDeleteTrip}/>
+                    <TripCard key={trip.id} trip={trip} trips={trips} setTrip={setTrip} user={user} parks={parks} parkDetails={parkDetails} handleDeleteTrip={handleDeleteTrip}/>
                 </Panel>)
             })} 
         </Collapse>
