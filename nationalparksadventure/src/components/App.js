@@ -46,7 +46,7 @@ function App() {
       return parks
     }
   };
-console.log(parks)
+// console.log(parks)
   function handleLogoutClick() {
     fetch("/api/logout", { method: "DELETE" }).then((r) => {
         if (r.ok) {
