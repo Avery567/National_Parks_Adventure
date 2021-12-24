@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  devise_for :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
     resources :usertrips, only: [:index,:show,:create, :destroy]
     resources :trips, only: [:index, :show, :create, :update, :destroy]
