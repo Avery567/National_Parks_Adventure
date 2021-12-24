@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
@@ -9,12 +10,13 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :create, :destroy]
     # Routing logic: fallback requests for React Router.
     # Leave this here to help deploy your app later!
-    get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
-
     post '/login', to: "sessions#create"
     delete '/logout', to: "sessions#destroy"
     post '/signup', to: "users#create"
     get "/me", to: "users#show"
+    get '/parks', to: "parks#get_parks"
+    resource :parks
+    get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
   end
 
 end

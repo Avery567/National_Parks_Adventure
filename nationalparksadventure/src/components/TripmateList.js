@@ -97,7 +97,7 @@ function TripmateList ({trip, trips, user, setTrip}) {
     <>
         <h2>Tripmates</h2>
         <div id="tripmate" >
-            {tripmates.length>1? 
+            {tripmates.length>0? 
             <Space direction="vertical">
                 {tripmates.map((tripmate)=>{
                     return (<TripmateCard key={tripmate.id} tripmate={tripmate} userTrips={userTrips} handleDeleteTripmate={handleDeleteTripmate}/>)

@@ -28,9 +28,10 @@ function App() {
   };
 
   useEffect(() => {
-    fetch ('https://developer.nps.gov/api/v1/parks?limit=495&api_key=qeE5JzYsOC3owspHxF6feYL8A2AOfa9WsIq78pUn')
+    fetch ('/api/parks')
     .then(resp => resp.json())
     .then (data => {
+      console.log(data)
       setParks(data.data)
     })
   } , []);
@@ -45,7 +46,7 @@ function App() {
       return parks
     }
   };
-
+console.log(parks)
   function handleLogoutClick() {
     fetch("/api/logout", { method: "DELETE" }).then((r) => {
         if (r.ok) {

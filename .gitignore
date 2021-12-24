@@ -25,3 +25,4 @@
 
 # hide api key
 .env
+node_modules

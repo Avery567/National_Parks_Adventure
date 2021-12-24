@@ -5,28 +5,32 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-require 'faker';
+# require 'faker';
 
-User.destroy_all
+
+# User.destroy_all
 # Tab.destroy_all
 # Usertab.destroy_all
 # Item.destroy_all
 
-(1..100).each do |id|
-User.create!(
-    username: Faker::Name.name,
-    email: Faker::Internet.email,
-    password: "Password123!!",
-    password_confirmation: "Password123!!",
-)
+# (1..100).each do |id|
+# User.create!(
+#     username: Faker::Name.name,
+#     email: Faker::Internet.email,
+#     password: "Password123!!",
+#     password_confirmation: "Password123!!",
+# )
 
-end
+# end
 
-User.create!(
-    username: "avery",
-    email: "avery@gmail.com",
-    password: "Password123!!",
-    password_confirmation: "Password123!!",
-)
+# User.create!(
+#     username: "avery",
+#     email: "avery@gmail.com",
+#     password: "Password123!!",
+#     password_confirmation: "Password123!!",
+# )
 
-puts "Done Seeding Users!"
+# puts "Done Seeding Users!"
+
+
+
