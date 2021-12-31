@@ -3,4 +3,5 @@ class TripSerializer < ActiveModel::Serializer
   has_many :parkdetails
   has_many :users
   has_many :packinglists
+  has_many :usertrips
 end

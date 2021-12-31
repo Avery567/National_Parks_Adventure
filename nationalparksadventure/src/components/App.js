@@ -18,9 +18,16 @@ function App() {
   const [trips, setTrip] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    fetch('/api/trips').then(r=>r.json()).then(setTrip)
-  },[])
+  useEffect(() => {
+    // auto-login
+    fetch("/api/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+  console.log(user)
+
 
   const handleSearch = (userInput) => {
     setSearch(userInput)
@@ -69,7 +76,7 @@ function App() {
       .then((r) => {
         if (r.ok) {
           r.json().then(newtrip => {
-            handleCreateUserTrip(newtrip.id)
+            handleCreateUserTrip(newtrip.id, newtrip)
             handleCreateParkDetails(tripname, newtrip.id, newtrip)
             success()
           });
@@ -83,20 +90,25 @@ function App() {
   const success = () => message.success('New Trip Created!');
 
 
-  function handleCreateUserTrip(trip_id) {
+  function handleCreateUserTrip( newtrip,trip_id) {
       fetch("/api/usertrips", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-              user_id: parseInt(user.id),
+              user_id: user.id,
               trip_id: trip_id
           }),
       })
    .then(r => {
       if (r.ok) {
-            r.json().then(data=>console.log(data))
+            r.json().then(data=>{
+              newtrip.usertrips = new Array(data)
+              console.log(data)
+              // const updatedTripswithNewUser = [...trips, newtrip]
+              // setTrip(updatedTripswithNewUser)
+            })
             } else {
                 r.json().then(err => setErrors([...errors, err.errors]))
             }
@@ -142,16 +154,13 @@ function App() {
         }
     });
   }
-// console.log(trips)
 
-  useEffect(() => {
-    // auto-login
-    fetch("/api/me").then((r) => {
-      if (r.ok) {
-        r.json().then((user) => setUser(user));
-      }
-    });
-  }, []);
+
+useEffect(()=>{
+  fetch('/api/trips').then(r=>r.json()).then(setTrip)
+},[])
+
+console.log(parks)
 
   if (!user) return (
 
