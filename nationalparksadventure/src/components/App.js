@@ -7,6 +7,7 @@ import ParkContainer from "./ParkContainer";
 import ParkFullDetail from "./ParkFullDetail";
 import ContactUs from "./ContactUs";
 import Dashboard from "./Dashboard";
+import Slider from "./Slider";
 import {Routes, Route, useNavigate} from "react-router-dom"
 
 function App() {
