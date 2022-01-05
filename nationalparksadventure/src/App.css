@@ -54,7 +54,7 @@
   border-right: none;
   padding: 5px;
   height: 45px;
-  border-radius: 5px 0 0 5px;
+  border-radius: 10px 0 0 10px;
   outline: none;
   color: white;
 }
@@ -71,7 +71,7 @@
   /* background: white; */
   text-align: center;
   color: white;
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 10px 10px 0;
   cursor: pointer;
   font-size: 20px;
 }
@@ -88,6 +88,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  border: black;
 }
 
 #park-container {
