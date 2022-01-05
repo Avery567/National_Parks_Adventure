@@ -25,6 +25,9 @@ function Dashboard({ parkDetails, handleLogoutClick, onLogin, user, parks, trips
 
     return (
         <Layout className="box">
+            <Header className="header" >
+                {/* <h1>Tab-Tab-Tab</h1> */}
+            </Header>
             <Layout>
                 <Sider width={300} id="sidebar">
                     <Menu

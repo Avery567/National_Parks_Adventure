@@ -40,7 +40,7 @@ function Login({ onLogin }) {
     }
     return (
         <>
-            <Button onClick={showLogin}>Sign In</Button>
+            <a className="navbar__link" onClick={showLogin}>Log In</a>
             <Modal 
                 title="User Login" 
                 visible={isLoginVisible}

@@ -45,7 +45,7 @@ function SignUp({ onLogin }) {
     }
     return (
         <>
-            <Button onClick={showRsvp}>Create New Account</Button>
+            <a className="navbar__link" onClick={showRsvp}>Sign Up</a>
             <Modal 
                 title="User Registration" 
                 visible={isRsvpVisible}

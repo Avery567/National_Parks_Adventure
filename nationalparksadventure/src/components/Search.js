@@ -1,4 +1,6 @@
 import { useState } from "react";
+import '../App.css'
+import search from '../asset/search.png';
 
 function Search ({handleSearch}) {
 
@@ -13,16 +15,18 @@ function Search ({handleSearch}) {
   }
 
     return (
-      <div>
-        <form id="search-form" onSubmit={handleSubmit}>
+      <div className="wrap">
+        <form id="search-form" className="search" onSubmit={handleSubmit}>
           <input
             id="search"
+            className ="searchTerm"
             type="text"
-            placeholder="Search national parks, cities, etc"
+            placeholder="search national parks, cities, etc"
             value={form}
             onChange= {handleForm}
           >
           </input>
+          <button type="submit" className="searchButton" onSubmit={handleSubmit}><img src={search}/></button>
         </form>
       </div>
     )

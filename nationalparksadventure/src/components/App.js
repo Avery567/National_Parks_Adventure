@@ -7,10 +7,16 @@ import ParkContainer from "./ParkContainer";
 import ParkFullDetail from "./ParkFullDetail";
 import ContactUs from "./ContactUs";
 import Dashboard from "./Dashboard";
-import Slider from "./Slider";
 import {Routes, Route, useNavigate} from "react-router-dom"
 
 function App() {
+
+  const navbarLinks = [
+    { url: "/", title: "Home" },
+    { url: "/dashboard", title: "My Dashboard" },
+    { url: "/contactus", title: "Contact Us" },
+  ];
+
   const [user, setUser] = useState(null);
   const [errors, setErrors] = useState([]);
   const [search, setSearch] = useState('');
@@ -166,7 +172,7 @@ console.log(parks)
   if (!user) return (
 
     <div className="App">
-      <Header handleSearch={handleSearch} onLogin={setUser}/>
+      <Header navbarLinks={navbarLinks} handleSearch={handleSearch} onLogin={setUser}/>
 
         <Routes>
           <Route exact path = "*" element={<LandingPage handleSearch={handleSearch} searchResults={searchResults}/>}/>
@@ -174,7 +180,7 @@ console.log(parks)
           <Route path = "/parkcontainer/:id" element={<ParkFullDetail handleCreateTrip={handleCreateTrip} parks={searchResults()}/>}/>
           <Route path = "/dashboard/*" element={<Dashboard parks={searchResults()} handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} trips={trips} setTrip={setTrip} parkDetails={parkDetails} />}/>
           <Route path = "/contactus" element={<ContactUs />}/>
-
+  
         </Routes>
 
       
@@ -184,7 +190,7 @@ console.log(parks)
   return (
 
     <div className="App">
-      <Header handleSearch={handleSearch} onLogin={setUser}/>
+      <Header navbarLinks={navbarLinks} handleSearch={handleSearch} onLogin={setUser}/>
       <Routes>
           <Route exact path = "*" element={<LandingPage handleSearch={handleSearch} searchResults={searchResults}/>}/>
           <Route path = "/parkcontainer" element={<ParkContainer parks={searchResults()}/>}/>
@@ -193,6 +199,7 @@ console.log(parks)
           <Route path = "/contactus" element={<ContactUs />}/>
 
         </Routes>
+       
     </div>
 
   )
