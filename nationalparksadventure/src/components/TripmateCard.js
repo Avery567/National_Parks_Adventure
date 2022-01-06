@@ -7,10 +7,10 @@ function TripmateCard({ tripmate, userTrip, handleDeleteTripmate }) {
     // console.log(userTrip)
     return (
     <div>
-        <span id="singleitem">
+            <a><Button onClick={()=>handleDeleteTripmate(tripmate.id)} style={{float: 'right'}} size="small" icon={<DeleteOutlined  />} /></a>
+
             {tripmate.username}
-            <Button onClick={()=>handleDeleteTripmate(tripmate.id)} style={{float: 'right'}} size="small" icon={<DeleteOutlined  />} />
-        </span>
+
     </div>
     )
 }

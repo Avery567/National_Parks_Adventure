@@ -10,7 +10,6 @@ import Dashboard from "./Dashboard";
 import {Routes, Route, useNavigate} from "react-router-dom"
 
 
-
 function App() {
 
   const navbarLinks = [
@@ -85,8 +84,8 @@ function App() {
       .then((r) => {
         if (r.ok) {
           r.json().then(newtrip => {
-            handleCreateUserTrip(newtrip.id, newtrip)
-            handleCreateParkDetails(tripname, newtrip.id, newtrip)
+            // handleCreateUserTrip(newtrip.id, newtrip)
+            handleCreateParkDetails(tripname, newtrip)
             success()
           });
         }
@@ -99,32 +98,32 @@ function App() {
   const success = () => message.success('New Trip Created!');
 
 
-  function handleCreateUserTrip( newtrip,trip_id) {
-      fetch("/api/usertrips", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-              user_id: user.id,
-              trip_id: trip_id
-          }),
-      })
-   .then(r => {
-      if (r.ok) {
-            r.json().then(data=>{
-              newtrip.usertrips = new Array(data)
-              console.log(data)
-              // const updatedTripswithNewUser = [...trips, newtrip]
-              // setTrip(updatedTripswithNewUser)
-            })
-            } else {
-                r.json().then(err => setErrors([...errors, err.errors]))
-            }
-        })
-  } 
+  // function handleCreateUserTrip( newtrip,trip_id) {
+  //     fetch("/api/usertrips", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //             user_id: parseInt(user.id),
+  //             trip_id: trip_id
+  //         }),
+  //     })
+  //  .then(r => {
+  //     if (r.ok) {
+  //           r.json().then(data=>{
+  //             // newtrip.usertrips = new Array(data)
+  //             console.log(data)
+  //             // const updatedTripswithNewUser = [...trips, newtrip]
+  //             // setTrip(updatedTripswithNewUser)
+  //           })
+  //           } else {
+  //               r.json().then(err => setErrors([...errors, err.errors]))
+  //           }
+  //       })
+  // } 
 
-  function handleCreateParkDetails(tripname, trip_id, newtrip) {
+  function handleCreateParkDetails(tripname, newtrip) {
     let myPark = parks.find(park=>{
       return park.fullName === tripname
     })
@@ -146,7 +145,7 @@ function App() {
           addresses: myPark.addresses[0].line1,
           images: myPark.images[0].url,
           weatherinfo: myPark.weatherInfo,
-          trip_id: trip_id,
+          trip_id: newtrip.id,
           user_id: user.id
     }),
     })

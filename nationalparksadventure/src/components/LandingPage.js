@@ -18,18 +18,18 @@ function LandingPage({search, handleSearch, searchResults}) {
                 <h1><Search search={search} handleSearch={handleSearch}/> </h1>
             </div>
             <Slider
-        imageSrc={slider1}
-        title={"Be an explorer."}
-        subtitle={
-          "Our platform offers a wide variety of unique travel locations!"
-        }
-      />
-        <Slider
-        imageSrc={slider2}
-        title={"Memories for a lifetime."}
-        subtitle={"Your dream vacation is only a few clicks away."}
-        flipped={true}
-      />
+                imageSrc={slider1}
+                title={"Be an explorer."}
+                subtitle={
+                "Our platform offers a wide variety of unique travel locations!"
+                }
+             />
+            <Slider
+                imageSrc={slider2}
+                title={"Memories for a lifetime."}
+                subtitle={"Your dream vacation is only a few clicks away."}
+                flipped={true}
+             />
         </>
     )
 }

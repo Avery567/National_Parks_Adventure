@@ -5,6 +5,7 @@ import { Popconfirm, Popover, Avatar } from 'antd';
 import { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined,  DollarCircleOutlined, UserOutlined, UsergroupDeleteOutlined  } from '@ant-design/icons';
 import TripmateCard from "./TripmateCard";
 import DebounceSelect from './DebounceSelect';
+import styled from 'styled-components';
 
 function TripmateList ({trip, trips, user, setTrip}) {
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -15,20 +16,20 @@ function TripmateList ({trip, trips, user, setTrip}) {
     const [value, setValue] = useState([]);
     const [form] = Form.useForm();
     const showModal = () => {
-      setIsModalVisible(true);
+        setIsModalVisible(true);
     };
     const handleOk = () => {
         setIsModalVisible(false);
       };
     
     const handleCancel = () => {
-    setIsModalVisible(false);
+        setIsModalVisible(false);
     };
 
     async function fetchUserList(value) {
         return fetch("/api/users")
             .then(r=>r.json())
-            .then((data)=>
+            .then((data)=> 
                 data.map((user)=>({
                     label: `${user.id} ${user.username}`,
                     value: user.email
@@ -42,7 +43,7 @@ function TripmateList ({trip, trips, user, setTrip}) {
 
     function handleAddUserToTrip(trip_id) {
         const users = value.map(v=>{return(v.label.split(' ')[0])})
-        users.map((user)=>{
+        users.forEach((user)=>{
             fetch("/api/usertrips", {
                 method: "POST",
                 headers: {
@@ -95,21 +96,31 @@ function TripmateList ({trip, trips, user, setTrip}) {
 
   return (
     <>
-        <h2>Tripmates</h2>
-        <div id="tripmate" >
-            {tripmates.length>0? 
-            <Space direction="vertical">
-                {tripmates.map((tripmate)=>{
-                    return (<TripmateCard key={tripmate.id} tripmate={tripmate} userTrips={userTrips} handleDeleteTripmate={handleDeleteTripmate}/>)
-                })}
-            </Space>:
-                <p>No tripmate at the moment, invite new tripmates!</p>} 
-                {/* {userTrips.map(userTrip=><TripmateCard key={userTrip.id} userTrip={userTrip}/>)} */}
-        </div>
-        <Button onClick={showModal}>
-        <PlusOutlined />
-        Invite Tripmates
-      </Button>
+         
+         <YourTripmates>
+             <Tripmate>
+                 <Detail>
+                     <Title>Tripmates
+                  
+                        <Button onClick={showModal}>
+                            <PlusOutlined />
+                            Invite Tripmates
+                        </Button>
+                     </Title>
+                     <Subtitle>
+                            {tripmates.length>0? 
+                            <Space direction="vertical">
+                                {tripmates.map((tripmate)=>{
+                                    return (<TripmateCard key={tripmate.id} tripmate={tripmate} userTrips={userTrips} handleDeleteTripmate={handleDeleteTripmate}/>)
+                                })}
+                            </Space>:
+                                <p>No tripmate at the moment, invite new tripmates!</p>} 
+                    </Subtitle>
+                 </Detail>
+             </Tripmate>
+         </YourTripmates>
+
+
       <Modal title="Invite New Tripmate" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
           <Form
               name="newtripmate"
@@ -162,3 +173,43 @@ function TripmateList ({trip, trips, user, setTrip}) {
 }
 
 export default TripmateList
+
+
+const YourTripmates = styled.div` 
+    height:70;
+    margin:0;
+    padding: 1rem;
+    background-color: #e6e4ff ;
+    border-radius: 1rem;
+    box-shadow: 0px 2px 5px lightgrey;
+    transition: 0.4s ease-in-out;
+    &: hover {
+        box-shadow: 0px 2px 5px lightgrey;
+    }
+
+`;
+
+const Tripmate = styled.div` 
+ display: flex;
+ alight-items: center;
+ margin-bottom: 0.3rem;
+
+`;
+
+const Detail = styled.div` 
+    margin-left:1rem;
+    justify-content: space-around;
+    align-items: left;
+
+`;
+const Title = styled.h3` 
+    font-weight: 500;
+    display: flex;
+    gap:1rem;
+    align-items: center;
+`;
+const Subtitle = styled.h4` 
+    font-weight: 500;
+    display: flex;
+    margin-top:1.4rem;
+`;

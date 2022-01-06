@@ -7,12 +7,16 @@ function ParkContainer ({parks}) {
 
   return (
     <>
+     <ReactPaginate
+        previousLabel = {'Previous'}
+     
+     />
         <img src={parkcontainer} alt="parkcontainer" className="parkcontainer_image" />  
-        <main>
+        <div class="main">
           <div class="cards">
             {parks.map(park => <ParkCard key={park.id} park={park}/>)}
           </div>
-        </main>
+        </div>
     </>
   )
 }

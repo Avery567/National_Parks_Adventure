@@ -4,7 +4,7 @@ import PackingCard from "./PackingCard";
 import { Button, Space, Modal, InputNumber, Form, Input, message } from 'antd';
 import { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined,  DollarCircleOutlined, UserOutlined, UsergroupDeleteOutlined  } from '@ant-design/icons';
 import { Popconfirm, Popover, Avatar } from 'antd';
-
+import styled from 'styled-components';
 
 function PackingList ({trip, user}) {
   // console.log(user.id)
@@ -71,21 +71,30 @@ function PackingList ({trip, user}) {
 
   return (
     <>
-      <h2>Packing List:</h2>
-      <div id="packingcard" >
-        
-        {packingLists.length>0? 
-          <Space direction="vertical">
-              {packingLists.map((packingList)=>{
-                  return (<PackingCard key={packingList.id} packingList={packingList} handleDeletePackingList={handleDeletePackingList} />)
-              })}
-          </Space>:
-              <p>No item at the moment, please add new items!</p>}
-       </div>
-      <Button onClick={showModal}>
-        <PlusOutlined />
-        New Item
-      </Button>
+        <YourPackingLists>
+             <Packinglist>
+                 <Detail>
+                     <Title>Packing List
+                
+                        <Button onClick={showModal}>
+                            <PlusOutlined />
+                            Add Gear
+                        </Button>
+                        </Title>
+                    
+                     <Subtitle>
+                    {packingLists.length>0? 
+                      <Space direction="vertical">
+                          {packingLists.map((packingList)=>{
+                              return (<PackingCard key={packingList.id} packingList={packingList} handleDeletePackingList={handleDeletePackingList} />)
+                          })}
+                      </Space>:
+                          <p>No item at the moment, please add new items!</p>}
+                   </Subtitle>
+                  </Detail>
+             </Packinglist>
+         </YourPackingLists>
+
       <Modal title="Create New Item" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
           <Form
               name="newitem"
@@ -131,3 +140,43 @@ function PackingList ({trip, user}) {
 }
 
 export default PackingList
+
+const YourPackingLists = styled.div` 
+    height:70;
+    background-color: #e6e4ff ;
+    margin:0;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0px 2px 5px lightgrey;
+    transition: 0.4s ease-in-out;
+    &: hover {
+        box-shadow: 0px 2px 5px lightgrey;
+    }
+
+`;
+
+const Packinglist = styled.div` 
+ display: flex;
+ alight-items: center;
+ margin-bottom: 0.3rem;
+
+`;
+
+const Detail = styled.div` 
+ margin-left:1rem;
+ justify-content: space-around;
+ align-items: left;
+
+`;
+const Title = styled.h3` 
+ font-weight: 500;
+ display: flex;
+ gap:1rem;
+ align-items: center;
+`;
+
+const Subtitle = styled.h4` 
+font-weight: 500;
+display: flex;
+margin-top:1.4rem;
+`;

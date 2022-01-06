@@ -10,7 +10,7 @@
   }
 
   
-  main {
+  .main {
     display: grid;
     grid-template-columns: 1fr repeat(12, minmax(auto, 60px)) 1fr;
     grid-gap: 40px;
@@ -33,6 +33,19 @@
     font-weight: 400;
     text-Decoration:none;
     color: white;
+    margin: auto;
+    margin: 0px 5px;
+    text-decoration: none;
+    padding: 5px 20px;
+    /* background-color: #78e08f; */
+    border-color: white;
+  }
+
+  .titletext--medium {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
   }
   
   .cards {
@@ -97,17 +110,17 @@
   
   .card__button {
     margin: auto;
-    text-Decoration:none;
     margin: 0px 5px;
-    text-decoration: none;
     padding: 5px 20px;
-    /* background-color: #303032; */
-    border-radius: 15px;
+    /* background-color: #78e08f; */
+    border-radius: 5px;
+    border-color: white;
+    box-shadow: 0px 2px 5px lightgrey;
   }
   
-  .card__button:hover {
+  /* .card__button:hover {
     color: greenyellow;
-  }
+  } */
 
   @media only screen and (max-width: 1000px) {
     .card {
