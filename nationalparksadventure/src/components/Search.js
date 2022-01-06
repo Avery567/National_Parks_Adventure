@@ -26,7 +26,7 @@ function Search ({handleSearch}) {
             onChange= {handleForm}
           >
           </input>
-          <button type="submit" className="searchButton" onSubmit={handleSubmit}><img src={search}/></button>
+          <button type="submit" className="searchButton" onClick={handleSubmit}><img src={search}/></button>
         </form>
       </div>
     )

@@ -145,7 +145,7 @@ const ParkImage = styled.div`
   img{
     border-radius: 1rem;
     height: 20rem;
-    width: 24rem;
+    width: 25rem;
   }  
  
 `;

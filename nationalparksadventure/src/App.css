@@ -32,6 +32,8 @@ body::-webkit-scrollbar-thumb {
   height: 100%;
   object-fit: cover;
   position: absolute;
+  margin-top: 1.5rem;
+  z-index:-1;
 }
 
 .landing_title {
@@ -46,14 +48,14 @@ body::-webkit-scrollbar-thumb {
  padding: 15px;
 }
 
-/* .landing_searchbar {
+.landing_searchbar {
   position: absolute;
   bottom: 45%;
   right: 30%;
   color: white;
   font-size: 3rem;
   padding: 10px;
- } */
+ }
 /* styling for search bar */
  .search {
   width: 100%;
@@ -69,7 +71,7 @@ body::-webkit-scrollbar-thumb {
   height: 45px;
   border-radius: 10px 0 0 10px;
   outline: none;
-  color: white;
+  color: black;
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */

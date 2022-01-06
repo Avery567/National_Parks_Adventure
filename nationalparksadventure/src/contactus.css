@@ -67,7 +67,7 @@
 }
 
 .screen-header-button.close {
-  background: #ed1c6f;
+  background: yellowgreen;
 }
 
 .screen-header-button.maximize {
@@ -120,7 +120,7 @@
   bottom: -10px;
   width: 25px;
   height: 4px;
-  background: #ea1d6f;
+  background: yellowgreen;
 }
 
 .app-contact {

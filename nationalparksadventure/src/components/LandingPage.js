@@ -15,8 +15,8 @@ function LandingPage({search, handleSearch, searchResults}) {
             <div className="landing">
                 <img src={landingiamge} alt="landing" className="landing_image"/>
                 <h1 className="landing_title">Discover your next adventure</h1>
-                <h1><Search search={search} handleSearch={handleSearch}/> </h1>
             </div>
+            <Search search={search} handleSearch={handleSearch}/>
             <Slider
                 imageSrc={slider1}
                 title={"Plan your best trip ever"}

@@ -20,21 +20,20 @@ function App() {
   const [trips, setTrip] = useState([]);
   const navigate = useNavigate();
 
-
-
-  const handleSearch = (userInput) => {
-    setSearch(userInput)
-    navigate("/parkcontainer")
-  };
-
   useEffect(() => {
     fetch ('/api/parks')
     .then(resp => resp.json())
     .then (data => {
-      console.log(data)
+      // console.log(data)
       setParks(data.data)
     })
   } , []);
+
+  
+  const handleSearch = (userInput) => {
+    setSearch(userInput)
+    navigate("/parkcontainer")
+  };
 
   const searchResults = () => {
     if (search.length > 0) {
@@ -156,7 +155,7 @@ useEffect(()=>{
   fetch('/api/trips').then(r=>r.json()).then(setTrip)
 },[])
 
-console.log(parks)
+// console.log(parks)
 
 useEffect(() => {
   // auto-login
@@ -166,7 +165,7 @@ useEffect(() => {
     }
   });
 }, []);
-console.log(user)
+// console.log(user)
 
   if (!user) return (
 
