@@ -89,7 +89,7 @@ function PackingList ({trip, user}) {
                               return (<PackingCard key={packingList.id} packingList={packingList} handleDeletePackingList={handleDeletePackingList} />)
                           })}
                       </Space>:
-                          <p>No item at the moment, please add new items!</p>}
+                          <p>Gear Up!</p>}
                    </Subtitle>
                   </Detail>
              </Packinglist>

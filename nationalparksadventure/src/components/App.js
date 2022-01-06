@@ -12,12 +12,6 @@ import {Routes, Route, useNavigate} from "react-router-dom"
 
 function App() {
 
-  const navbarLinks = [
-    { url: "/", title: "Home" },
-    { url: "/dashboard", title: "My Dashboard" },
-    { url: "/contactus", title: "Contact Us" },
-  ];
-
   const [user, setUser] = useState(null);
   const [errors, setErrors] = useState([]);
   const [search, setSearch] = useState('');
@@ -26,15 +20,6 @@ function App() {
   const [trips, setTrip] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // auto-login
-    fetch("/api/me").then((r) => {
-      if (r.ok) {
-        r.json().then((user) => setUser(user));
-      }
-    });
-  }, []);
-  console.log(user)
 
 
   const handleSearch = (userInput) => {
@@ -50,8 +35,6 @@ function App() {
       setParks(data.data)
     })
   } , []);
-
-
 
   const searchResults = () => {
     if (search.length > 0) {
@@ -97,6 +80,11 @@ function App() {
 
   const success = () => message.success('New Trip Created!');
 
+  const navbarLinks = [
+    { url: "/", title: "Home" },
+    { url: "/dashboard", title: "My Dashboard" },
+    { url: "/contactus", title: "Contact" },
+  ];
 
   // function handleCreateUserTrip( newtrip,trip_id) {
   //     fetch("/api/usertrips", {
@@ -170,6 +158,16 @@ useEffect(()=>{
 
 console.log(parks)
 
+useEffect(() => {
+  // auto-login
+  fetch("/api/me").then((r) => {
+    if (r.ok) {
+      r.json().then((user) => setUser(user));
+    }
+  });
+}, []);
+console.log(user)
+
   if (!user) return (
 
     <div className="App">
@@ -178,7 +176,7 @@ console.log(parks)
         <Routes>
           <Route exact path = "*" element={<LandingPage handleSearch={handleSearch} searchResults={searchResults}/>}/>
           <Route path = "/parkcontainer" element={<ParkContainer parks={searchResults()}/>}/>
-          <Route path = "/parkcontainer/:id" element={<ParkFullDetail handleCreateTrip={handleCreateTrip} parks={searchResults()}/>}/>
+          <Route path = "/parkcontainer/:id" element={<ParkFullDetail handleCreateTrip={handleCreateTrip} user={user} parks={searchResults()}/>}/>
           <Route path = "/dashboard/*" element={<Dashboard parks={searchResults()} handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} trips={trips} setTrip={setTrip} parkDetails={parkDetails} />}/>
           <Route path = "/contactus" element={<ContactUs />}/>
   
@@ -195,7 +193,7 @@ console.log(parks)
       <Routes>
           <Route exact path = "*" element={<LandingPage handleSearch={handleSearch} searchResults={searchResults}/>}/>
           <Route path = "/parkcontainer" element={<ParkContainer parks={searchResults()}/>}/>
-          <Route path = "/parkcontainer/:id" element={<ParkFullDetail handleCreateTrip={handleCreateTrip} parks={searchResults()}/>}/>
+          <Route path = "/parkcontainer/:id" element={<ParkFullDetail handleCreateTrip={handleCreateTrip} user={user} parks={searchResults()}/>}/>
           <Route path = "/dashboard/*" element={<Dashboard parks={searchResults()} handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} trips={trips} setTrip={setTrip} parkDetails={parkDetails} />}/>
           <Route path = "/contactus" element={<ContactUs />}/>
 

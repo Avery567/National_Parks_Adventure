@@ -2,10 +2,13 @@ import { send } from 'emailjs-com';
 import {useState} from "react";
 import '../contactus.css'
 import green from '../asset/green.jpg';
+import { message } from 'antd';
+
 
 
 function ContactUs () {
-
+    const success = () => message.success('Sent! Thank you for your message.');
+    
     const [formMessage, setFormMessage] = useState ({
         name: '',
         email: '',
@@ -19,6 +22,7 @@ function ContactUs () {
 
     function handleSubmit(e) {
         console.log("submitted")
+        success();
         e.preventDefault();
 
         const templateParams = {
@@ -41,6 +45,7 @@ function ContactUs () {
                 alert('Something went wrong, please try again.');
             }
         );
+    
         e.target.reset();
     }
 

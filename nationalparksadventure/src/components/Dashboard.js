@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import TripContainer from "./TripContainer";
 import ninja from '../asset/ninja.png';
 import {RiLogoutBoxFill} from "react-icons/ri";
+import '../App.css'
 
 
 
@@ -28,11 +29,11 @@ function Dashboard({ parkDetails, handleLogoutClick, onLogin, user, parks, trips
         const curHr = today.getHours()
 
         if (curHr < 12) {
-            return ('Good Morning,')
+            return ('Good Morning, ')
         } else if (curHr < 18) {
-            return ('Good Afternoon,')
+            return ('Good Afternoon, ')
         } else {
-            return ('Good Evening,')
+            return ('Good Evening, ')
         }
     }
     
@@ -91,12 +92,12 @@ export default Dashboard;
 
 const Container = styled.div`
  display: flex;
- height: 87vh;
+ height: 91vh;
  margin-top: 5rem;
- margin-right: 1rem;
- margin-left: 1rem;
+ margin-right: 0.5rem;
+ margin-left: 0.5rem;
  background: linear-gradient(to bottom right, white 0%, #e6e4ff 70%);
- border-radius: 6rem;
+ border-radius: 5rem;
 `;
 
 const Sidebar = styled.div`

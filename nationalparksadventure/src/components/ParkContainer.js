@@ -12,8 +12,8 @@ function ParkContainer ({parks}) {
      
      />
         <img src={parkcontainer} alt="parkcontainer" className="parkcontainer_image" />  
-        <div class="main">
-          <div class="cards">
+        <div className="main">
+          <div className="cards">
             {parks.map(park => <ParkCard key={park.id} park={park}/>)}
           </div>
         </div>

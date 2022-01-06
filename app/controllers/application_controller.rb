@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
     before_action :is_authenticated
+
     include ActionController::Cookies
 
     private

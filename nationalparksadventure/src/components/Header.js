@@ -32,7 +32,6 @@ function Header ({ onLogin, search, handleSearch, navbarLinks }) {
             menuClicked ? "navbar__list navbar__list--active" : "navbar__list"
           }
         >
-          {/* <a className="navbar__link"><Search search={search} handleSearch={handleSearch}/></a> */}
           {navbarLinks.map((item, index) => {
             return (
               <li className="navbar__item" key={index}>
@@ -42,10 +41,8 @@ function Header ({ onLogin, search, handleSearch, navbarLinks }) {
               </li>
             );
           })}
-            {/* <a ><Link to="/dashboard">My Dashboard</Link></a> */}
-
-            <a className="navbar__link"><LogIn onLogin={onLogin} /></a>
-            <a className="navbar__link"><SignUp onLogin={onLogin} /></a>
+            <p className="navbar__link"><LogIn onLogin={onLogin} /></p>
+            <p className="navbar__link"><SignUp onLogin={onLogin} /></p>
         </ul>
       </nav>
 

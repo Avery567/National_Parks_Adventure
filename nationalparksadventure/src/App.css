@@ -1,4 +1,15 @@
-
+body::-webkit-scrollbar {
+  width: 0.5em;
+}
+ 
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid rgb(195, 206, 216);
+}
 
 .App {
   margin: 0;
@@ -149,7 +160,7 @@
 .navbar {
   position: sticky;
   top: 0px;
-  height: 70px;
+  height: 45px;
   background-color: black;
   opacity: 0.8;
   display: flex;
@@ -164,7 +175,7 @@
   color: white;
   /* font-weight: bold; */
   font-family: 'Bebas Neue', cursive;
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 /*
@@ -188,10 +199,9 @@
   The anchor tag ( <a> ) for the navbar links
   */
 .navbar__link {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   text-decoration: none;
   color: rgb(255, 255, 255);
-  text-align: center;
   padding: 10px;
   margin: 0px 5px;
   border-style: solid;
@@ -270,7 +280,7 @@
 }
 
 #currenttabs .ant-collapse {
-  height:70;
+  height:80;
   background-color: white;
   margin:0;
   padding: 1rem;

@@ -1,5 +1,6 @@
 class Api::ParkdetailsController < ApplicationController
 
+
     def index
         parkdetails = current_user.parkdetails
         render json: parkdetails

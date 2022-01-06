@@ -1,4 +1,6 @@
 class Api::ParksController < ApplicationController
+    skip_before_action :is_authenticated
+
     require 'rest-client'
 
     def get_parks

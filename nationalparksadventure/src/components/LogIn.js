@@ -1,6 +1,8 @@
-import { Button, Modal, Form, Input, Alert } from 'antd';
+import { Button, Modal, Form, Input, Alert, message } from 'antd';
 import { useState } from 'react';
-import {Routes, Route, useNavigate} from "react-router-dom"
+import {Routes, Route, useNavigate} from "react-router-dom";
+import styled from 'styled-components';
+import '../signuplogin.css'
 
 function Login({ onLogin }) {
     const navigate = useNavigate()
@@ -17,6 +19,8 @@ function Login({ onLogin }) {
     function handleClose() {
         setLoginVisible(false)
     }
+
+
     function handleSubmit() {
         fetch("/api/login", {
             method: "POST",
@@ -27,7 +31,10 @@ function Login({ onLogin }) {
           }).then((r) => {
             setIsLoading(false);
             if (r.ok) {
-              r.json().then((user) => {onLogin(user); navigate("/dashboard")});
+              r.json().then((user) => {
+                  onLogin(user)
+                  navigate("/dashboard")
+                });
             } else {
               r.json().then((err) => setErrors(err.errors));
             }
@@ -41,6 +48,7 @@ function Login({ onLogin }) {
     return (
         <>
             <a className="navbar__link" onClick={showLogin}>Log In</a>
+            {/* <div id="logintab" > */}
             <Modal 
                 title="User Login" 
                 visible={isLoginVisible}
@@ -102,8 +110,29 @@ function Login({ onLogin }) {
                     </Form.Item>
                 </Form>
             </Modal>
+            {/* </div> */}
         </>
     )
 }
 
-export default Login
+export default Login;
+
+const BoxContainer = styled.div`
+    width: 280px;
+    min-height: 550px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 19px;
+    background-color: #fff;
+    box-shadow: 0 0 2px rgba(15, 15, 15, 0.28);
+    position: relative;
+    overflow: hidden;
+`;
+
+const BackDrop = styled.div`
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    border-radius: 50%;
+
+`
