@@ -19,9 +19,9 @@ function LandingPage({search, handleSearch, searchResults}) {
             </div>
             <Slider
                 imageSrc={slider1}
-                title={"Be an explorer."}
+                title={"Plan your best trip ever"}
                 subtitle={
-                "Our platform offers a wide variety of unique travel locations!"
+                "Build, organize, and map your itineraries in a free travel app designed for vacations & road trips"
                 }
              />
             <Slider

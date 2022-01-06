@@ -149,13 +149,6 @@ const SubContainer = styled.div`
     gap:4rem;
     overflow-y: auto;
     margin-top: 2rem;
-    // &::-webkit-slider-thumb {
-    //     -webkit-appearance: none;
-    //     width: 15px;
-    //     height: 15px;
-    //     border:1px solid black;
-    //  }
-
 `;
 const NavBarContainer = styled.nav` 
  display:flex;

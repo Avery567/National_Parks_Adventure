@@ -286,9 +286,7 @@
 
 #currenttabs .ant-collapse-content {
   border: none;
-  /* padding-left: 3rem; */
   font-size: 13px;
   font-weight: 400;
   width:100%;
-  /* background: rgba(202,223,192,1); */
 }
