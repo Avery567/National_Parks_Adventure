@@ -13,6 +13,7 @@ class Api::TripsController < ApplicationController
     def create 
         trip = Trip.create(trip_params)
         if trip.valid?
+            current_user.trips << trip
             render json: trip, status: :created 
         else 
             render json: trip.errors.full_messages, status: :unprocessable_entity 
