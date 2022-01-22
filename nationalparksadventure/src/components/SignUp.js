@@ -1,4 +1,4 @@
-import { Button, Modal, Form, Input, Alert } from 'antd';
+import { Button, Modal, Form, Input, Alert, message } from 'antd';
 import { useState } from 'react';
 import {Routes, Route, useNavigate} from "react-router-dom"
 
@@ -19,6 +19,8 @@ function SignUp({ onLogin }) {
     function handleClose() {
         setRsvpVisible(false)
     }
+    const success = () => message.success('New User Created!');
+
     function handleSubmit() {
         // e.preventDefault()
         setErrors([]);
@@ -32,7 +34,7 @@ function SignUp({ onLogin }) {
           }).then((r) => {
             setIsLoading(false);
             if (r.ok) {
-              r.json().then((user) => {onLogin(user); navigate("/dashboard")});
+              r.json().then((user) => {onLogin(user); navigate("/dashboard"); success(); handleClose()});
             } else {
               r.json().then((err) => setErrors(err.errors));
             }

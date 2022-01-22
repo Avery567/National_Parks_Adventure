@@ -24,7 +24,7 @@
   
   .text--medium {
     font-family: "Open Sans", sans-serif;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-weight: 400;
     text-Decoration:none;
@@ -32,7 +32,7 @@
     margin: auto;
     margin: 0px 5px;
     text-decoration: none;
-    padding: 5px 20px;
+    /* padding: 5px 20px; */
     /* background-color: #78e08f; */
     border-color: white;
   }
@@ -56,7 +56,7 @@
     display: flex;
     flex-direction: column;
     /* background-color: whites; */
-    /* cursor: pointer; */
+    cursor: pointer;
     /* transition: all 0.3s ease 0s; */
     border-radius: 5px 5px 5px 5px;
     box-shadow: 0px 6px 5px lightgrey;
@@ -94,29 +94,29 @@
     font-weight: bold;
   }
 
-  .card__title:hover {
+  /* .card__title:hover {
     color: greenyellow;
-  }
+  } */
   
   .card__info {
     display: flex;
     align-self: end;
     align-items: center;
+    justify-content: space-evenly;
   }
   
   .card__button {
-    margin: auto;
     margin: 0px 5px;
-    padding: 5px 20px;
+    padding: 5px 10px;
     /* background-color: #78e08f; */
     border-radius: 5px;
     border-color: white;
     box-shadow: 0px 2px 5px lightgrey;
   }
   
-  /* .card__button:hover {
+  .card__button:hover {
     color: greenyellow;
-  } */
+  }
 
   @media only screen and (max-width: 1000px) {
     .card {

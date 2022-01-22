@@ -9,13 +9,13 @@ function ParkFullDetail ({parks, user, handleCreateTrip}) {
 
 const { id } = useParams();
   // console.log(id)
-const fail = () => message.success('Please Log In to Continue.');
+const error = () => message.error('Please Log In to Continue. Do not have an account yet? Sign Up!');
 
 const onlyUserCanCreateTrip = (parkname) => {
   if(user) {
     handleCreateTrip(parkname)
   } else {
-    fail()
+    error()
   }
 }
 
@@ -40,7 +40,7 @@ const onlyUserCanCreateTrip = (parkname) => {
                             <h2>{park.fullName}</h2>
                             <span>State: {park.states}</span>
                         </div>
-                        <button className="cart" onClick={() => onlyUserCanCreateTrip(park.fullName)}>Plan A Trip</button>
+                        <button className="cart" onClick={() => onlyUserCanCreateTrip(park.fullName)}>Plan Trip</button>
                         <div className="content">
                             <p>Description: {park.description}</p>
                             <p>Entrance Fee: {park.entranceFees[0].cost}</p>

@@ -69,6 +69,7 @@ function App() {
             // handleCreateUserTrip(newtrip.id, newtrip)
             handleCreateParkDetails(tripname, newtrip)
             success()
+            navigate("/dashboard")
           });
         }
         else {
@@ -174,9 +175,9 @@ useEffect(() => {
 
         <Routes>
           <Route exact path = "*" element={<LandingPage handleSearch={handleSearch} searchResults={searchResults}/>}/>
-          <Route path = "/parkcontainer" element={<ParkContainer parks={searchResults()}/>}/>
+          <Route path = "/parkcontainer" element={<ParkContainer user={user}  handleCreateTrip={handleCreateTrip} parks={searchResults()}/>}/>
           <Route path = "/parkcontainer/:id" element={<ParkFullDetail handleCreateTrip={handleCreateTrip} user={user} parks={searchResults()}/>}/>
-          <Route path = "/dashboard/*" element={<Dashboard parks={searchResults()} handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} trips={trips} setTrip={setTrip} parkDetails={parkDetails} />}/>
+          <Route path = "/dashboard/*" element={<Dashboard handleSearch={handleSearch} parks={searchResults()} handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} trips={trips} setTrip={setTrip} parkDetails={parkDetails} />}/>
           <Route path = "/contactus" element={<ContactUs />}/>
   
         </Routes>
@@ -191,9 +192,9 @@ useEffect(() => {
       <Header navbarLinks={navbarLinks} handleSearch={handleSearch} onLogin={setUser}/>
       <Routes>
           <Route exact path = "*" element={<LandingPage handleSearch={handleSearch} searchResults={searchResults}/>}/>
-          <Route path = "/parkcontainer" element={<ParkContainer parks={searchResults()}/>}/>
-          <Route path = "/parkcontainer/:id" element={<ParkFullDetail handleCreateTrip={handleCreateTrip} user={user} parks={searchResults()}/>}/>
-          <Route path = "/dashboard/*" element={<Dashboard parks={searchResults()} handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} trips={trips} setTrip={setTrip} parkDetails={parkDetails} />}/>
+          <Route path = "/parkcontainer" element={<ParkContainer user={user} handleCreateTrip={handleCreateTrip} parks={searchResults()}/>}/>
+          <Route path = "/parkcontainer/:id" element={<ParkFullDetail  handleCreateTrip={handleCreateTrip} user={user} parks={searchResults()}/>}/>
+          <Route path = "/dashboard/*" element={<Dashboard handleSearch={handleSearch} parks={searchResults()} handleLogoutClick={handleLogoutClick} onLogin={setUser} user={user} trips={trips} setTrip={setTrip} parkDetails={parkDetails} />}/>
           <Route path = "/contactus" element={<ContactUs />}/>
 
         </Routes>

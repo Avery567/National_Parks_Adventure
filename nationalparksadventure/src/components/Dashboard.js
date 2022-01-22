@@ -13,7 +13,7 @@ import '../App.css'
 
 const { Header, Content, Sider } = Layout;
 
-function Dashboard({ parkDetails, handleLogoutClick, onLogin, user, parks, trips, setTrip, handleSaveParkDetail }) {
+function Dashboard({ parkDetails, handleLogoutClick, onLogin, user, parks, trips, setTrip,handleSearch, handleSaveParkDetail }) {
 
     useEffect(() => {
         // auto-login
@@ -35,6 +35,16 @@ function Dashboard({ parkDetails, handleLogoutClick, onLogin, user, parks, trips
         } else {
             return ('Good Evening, ')
         }
+    }
+
+    const [form, setForm] = useState("")
+
+    const handleForm = (e) => setForm(e.target.value)
+  
+    function handleSubmit(e) {
+      e.preventDefault();
+      console.log("submitted");
+      handleSearch(form)
     }
     
     if (!user) return ("You have to sign in first")
@@ -77,7 +87,9 @@ function Dashboard({ parkDetails, handleLogoutClick, onLogin, user, parks, trips
                             {greeting()}{user.username} !
                         </Text>
                         <InputContainer>
-                            <Input type="text" placeholder=" search for parks..."></Input> 
+                        <form onSubmit={handleSubmit} >
+                            <Input type="text" placeholder=" search for parks..." value={form} onChange= {handleForm}></Input> 
+                            </form>
                         </InputContainer>
                     </NavBarContainer>
                     <SubContainer>
